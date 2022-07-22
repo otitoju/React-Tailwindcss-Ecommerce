@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import { Product } from './pages/Product';
+import ItemLists from './components/ItemLists';
+import LandingPage from './pages/LandingPage';
 import './App.css';
 
 function App() {
@@ -11,8 +13,10 @@ function App() {
     <div>
       <Header />
       <Routes>
+        <Route path='/' element={<LandingPage />}/>
+        <Route path='/items' element={<ItemLists />}/>
         <Route path='/login' element={<Login />}/>
-        <Route path='/product' element={<Product />}/>
+        <Route path='/product/:productId' element={<Product />}/>
         <Route path='/register' element={<Register />}/>
         <Route path='/products' element={<Products />}/>
       </Routes>
