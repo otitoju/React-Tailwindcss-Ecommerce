@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import ProductCard from './ProductCard';
 import { getAllProducts } from '../Api/api';
 import SortList from './SortList';
 import FilterList from './FilterList';
 import { FilterCategory } from './FilterCategory';
-
-
+import { Pagination } from './Pagination';
 
 const SortablePageproduct = () => {
   const [products, setProducts] = useState([]);
   const [toggleSort, setToggleList] = useState(false);
   const [toggleFilter, setToggleFilter] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [PageSize] = useState(8)
 
   const getProducts = async () => {
     const products = await getAllProducts();
@@ -28,6 +29,11 @@ const SortablePageproduct = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    const currentProducts = products.slice(firstPageIndex, lastPageIndex);
+
   return (
     <div>
 
@@ -109,8 +115,15 @@ const SortablePageproduct = () => {
                 <div className="lg:col-span-3">
                   <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 lg:h-full">
                     <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-                      <ProductCard products={products} />
+                      {/* <ProductCard products={products} /> */}
+                      <ProductCard products={currentProducts} />
                     </div>
+                    <Pagination 
+                    currentPage={currentPage}
+                    totalCount={products.length}
+                    pageSize={PageSize}
+                    onPageChange={page => setCurrentPage(page)}
+                    />
                   </div>
                 </div>
               </div>
