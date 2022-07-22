@@ -18,3 +18,14 @@ export async function getProductById(productId) {
         throw error;
     }
 }
+
+export async function getProductByCategory(category) {
+    try {
+        const filteredProducts = await Products.filter(product => {
+            return product.category == category;
+        });
+        return filteredProducts;
+    } catch (error) {
+        throw error;
+    }
+}

@@ -15,12 +15,12 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<LandingPage />}/>
-        <Route path='/sort' element={<SortablePageproduct />}/>
+        <Route path='/products' element={<SortablePageproduct />}/>
         <Route path='/items' element={<ItemLists />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/product/:productId' element={<Product />}/>
         <Route path='/register' element={<Register />}/>
-        <Route path='/products' element={<Products />}/>
+        <Route path='/products/:category' element={<Products />}/>
       </Routes>
     </div>
   );

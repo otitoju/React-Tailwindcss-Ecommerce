@@ -52,6 +52,7 @@ export const Products = [
         ],
         details:
             'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+        category: "men"
     },
     {
         id: 2,
@@ -106,6 +107,7 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+          category: "unisex"
       },
       {
         id: 3,
@@ -160,6 +162,7 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+          category: "women"
       },
       {
         id: 4,
@@ -214,6 +217,7 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+          category: "unisex"
       },
       {
         id: 5,
@@ -268,6 +272,7 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+          category: "men"
       },
       {
         id: 6,
@@ -322,6 +327,7 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+          category: "men"
       },
       {
         id: 7,
@@ -376,6 +382,7 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+          category: "women"
       },
       {
         id: 8,
@@ -430,6 +437,7 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+          category: "women"
       },
       {
         id: 9,
@@ -484,5 +492,6 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+          category: "women"
       },
 ]
