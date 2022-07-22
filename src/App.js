@@ -6,6 +6,7 @@ import Products from './pages/Products';
 import { Product } from './pages/Product';
 import ItemLists from './components/ItemLists';
 import LandingPage from './pages/LandingPage';
+import SortablePageproduct from './components/SortablePageProduct';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<LandingPage />}/>
+        <Route path='/sort' element={<SortablePageproduct />}/>
         <Route path='/items' element={<ItemLists />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/product/:productId' element={<Product />}/>

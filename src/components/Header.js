@@ -25,7 +25,7 @@ const Header = () => {
     }, []);
 
     const openUserProfile = () => {
-        setShowProfile(showProfile = !showProfile);
+        setShowProfile(!showProfile);
     }
     return (
         <div>
