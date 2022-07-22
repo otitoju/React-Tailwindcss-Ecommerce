@@ -6,17 +6,17 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
     const [isLoggedIn, setIsloggedIn] = useState(true);
     const [open, setOpen] = useState(false);
+    const [showProfile, setShowProfile] = useState(false)
     let navigate = useNavigate();
+
     const handleShow = (e) => {
         e.preventDefault()
         setOpen(true);
-        console.log(open)
     }
 
     const handleHide = (e) => {
         e.preventDefault()
         setOpen(false);
-        console.log(open)
     }
 
     useEffect(() => {
@@ -24,6 +24,9 @@ const Header = () => {
         token ? setIsloggedIn(true) : setIsloggedIn(false);
     }, []);
 
+    const openUserProfile = () => {
+        setShowProfile(showProfile = !showProfile);
+    }
     return (
         <div>
             <nav className="bg-gray-800">
@@ -94,17 +97,19 @@ const Header = () => {
                             {
                                 isLoggedIn && <div className="ml-3 relative">
                                     <div>
-                                        <button type="button" className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                        <button onClick={openUserProfile} type="button" className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                             <span className="sr-only">Open user menu</span>
                                             <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                                         </button>
                                     </div>
 
 
-                                    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                    <div style={{
+                                        display: showProfile ? 'block' : 'none'
+                                    }} className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</a>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</a>
                                     </div>
                                 </div>
                             }

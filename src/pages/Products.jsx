@@ -30,6 +30,7 @@ const Products = () => {
                     className="w-full h-full object-center object-cover lg:w-full lg:h-full"
                   />
                 </div>
+                <button className='relative z-10 w-full bg-white bg-opacity-75 py-2 px-4 rounded-md text-sm text-gray-900 opacity-0 group-hover:opacity-100 focus:opacity-100'>Add to cart</button>
                 <div className="mt-4 flex justify-between">
                   <div>
                     <h3 className="text-sm text-gray-700">

@@ -92,10 +92,6 @@ export const Product = () => {
         setSizes(product.sizes);
         setDescription(product.description);
         setDetails(product.details);
-        
-        console.log(product);
-        console.log(product.colors);
-        console.log(product.name);
     }
     useEffect(() => {
         getProduct();
