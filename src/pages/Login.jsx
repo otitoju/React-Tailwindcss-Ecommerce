@@ -1,28 +1,17 @@
 import React, { useState, useRef } from 'react';
 import Alert from '../components/Alert';
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../Redux/apiCalls';
 
-const Users = [
-    {
-        id: 1,
-        name: "Admin",
-        email: 'admin@gmail.com',
-        password: '123456'
-    },
-    {
-        id: 2,
-        name: "John Doe",
-        email: 'johndoe@gmail.com',
-        password: '123456'
-    }
-];
 
 const Login = () => {   
     const [loggedIn, setLoggedIn] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [message, setMessage] = useState();
     const [title, setTitle] = useState();
-
+    const dispatch = useDispatch();
+    const { isFetching, error } = useSelector(state => state.user);
     let navigate = useNavigate();
 
     const emailRef = useRef();
@@ -30,29 +19,35 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        
+
         const enteredEmail = emailRef.current.value;
         const enteredPassword = passwordRef.current.value;
-
+        console.log(isFetching);
         if(enteredEmail === "" || enteredPassword === "") {
             setTitle("Empty fields!");
             setMessage("Please fill in all empty fields.");
             setShowAlert(true);
         }
         else {
-            const user = await Users.filter( el => { return el.email === enteredEmail && el.password === enteredPassword });
-            if(user.length === 1) {
-                setShowAlert(false);
-                setLoggedIn(true);
-                navigate('/products')
-                window.localStorage.setItem("token", "userLoggedIn");
-            }
-            else {
-                setShowAlert(true);
+            setLoggedIn(true);
+            // implement this when API is ready
+            setTimeout(() => {
+                login(dispatch, enteredEmail, enteredPassword );
                 setLoggedIn(false);
-                setTitle("Login Exception");
-                setMessage("Wrong email or password. Please check and try again.");
-            }
+            }, 5000);
+
+            // if(user.length === 1) {
+            //     setShowAlert(false);
+            //     setLoggedIn(true);
+            //     navigate('/products')
+            //     window.localStorage.setItem("token", "userLoggedIn");
+            // }
+            // else {
+            //     setShowAlert(true);
+            //     setLoggedIn(false);
+            //     setTitle("Login Exception");
+            //     setMessage("Wrong email or password. Please check and try again.");
+            // }
         }
     }
 
@@ -101,13 +96,19 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <button onClick={handleLogin} type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <button disabled={loggedIn ? true : false} onClick={handleLogin} type="submit" className={
+                                !loggedIn ? 
+                                "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                :
+                                "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-not-allowed disabled:opacity-50"
+                            }
+                            >
                                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                                     <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                                     </svg>
                                 </span>
-                                Sign in
+                                {!loggedIn ? "Sign in" : "Logging in"}
                             </button>
                         </div>
                     </form>

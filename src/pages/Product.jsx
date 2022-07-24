@@ -1,62 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { RadioGroup } from '@headlessui/react'
+import React, { useState, useEffect } from 'react';
+import { RadioGroup } from '@headlessui/react';
 import { StarIcon } from '@heroicons/react/solid';
 import { useParams } from 'react-router-dom';
-import { getProductById, getAllProducts } from '../Api/api';
+import { getProductById } from '../Api/api';
+import { addProduct } from '../Redux/cartRedux';
+import { useDispatch } from 'react-redux';
 
-const product = {
-    name: 'Basic Tee 6-Pack',
-    price: '$192',
-    href: '#',
-    breadcrumbs: [
-        { id: 1, name: 'Men', href: '#' },
-        { id: 2, name: 'Clothing', href: '#' },
-    ],
-    images: [
-        {
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-            alt: 'Two each of gray, white, and black shirts laying flat.',
-        },
-        {
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-            alt: 'Model wearing plain black basic tee.',
-        },
-        {
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-            alt: 'Model wearing plain gray basic tee.',
-        },
-        {
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
-            alt: 'Model wearing plain white basic tee.',
-        },
-    ],
-    colors: [
-        { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-        { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-        { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-    ],
-    sizes: [
-        { name: 'XXS', inStock: false },
-        { name: 'XS', inStock: true },
-        { name: 'S', inStock: true },
-        { name: 'M', inStock: true },
-        { name: 'L', inStock: true },
-        { name: 'XL', inStock: true },
-        { name: '2XL', inStock: true },
-        { name: '3XL', inStock: true },
-    ],
-    description:
-        'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-    highlights: [
-        'Hand cut and sewn locally',
-        'Dyed with our proprietary colors',
-        'Pre-washed & pre-shrunk',
-        'Ultra-soft 100% cotton',
-    ],
-    details:
-        'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-}
-const reviews = { href: '#', average: 4, totalCount: 117 }
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -66,7 +15,7 @@ function classNames(...classes) {
 export const Product = () => {
     const [selectedColor, setSelectedColor] = useState()
     const [selectedSize, setSelectedSize] = useState();
-    const [products, setProduct] = useState();
+    const [product, setProduct] = useState();
     const [breadcrumbs, setBreadcrumb] = useState([]);
     const [pictures, setPictures] = useState([]);
     const [productName, setProductName] = useState();
@@ -76,13 +25,18 @@ export const Product = () => {
     const [sizes, setSizes] = useState([]);
     const [details, setDetails] = useState();
     const [description, setDescription] = useState();
+    const [quantity, setQuantity] = useState(1);
+    const [color, setColor] = useState("");
+    const [size, setSize] = useState("");
+    const [itemInStock, setItemInStock] = useState(true);
 
+    const dispatch = useDispatch();
     const { productId } = useParams();
-    const getProduct = async () => {;
+    const getProduct = async () => {
+        ;
         const product = await getProductById(parseInt(productId));
         setProduct(product);
-        setSelectedColor(product.colors[0]);
-        setSelectedSize(product.sizes[2]);
+
         setBreadcrumb(product.breadcrumbs);
         setPictures(product.images);
         setProductName(product.name);
@@ -92,10 +46,31 @@ export const Product = () => {
         setSizes(product.sizes);
         setDescription(product.description);
         setDetails(product.details);
+        setItemInStock(product.inStock);
     }
     useEffect(() => {
         getProduct();
     }, []);
+
+    const handleQuantity = (type) => {
+        if (type === "decrease") {
+            quantity > 1 && setQuantity(quantity - 1);
+        }
+        else {
+            setQuantity(quantity + 1);
+        }
+    }
+
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+        if(size === "" || color === "") {
+            alert("Please select a size and color");
+        }
+        else {
+            dispatch(addProduct({ ...product, quantity, productPrice, color, size }));
+        }
+        
+    }
 
     return (
         <div className='max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
@@ -125,7 +100,7 @@ export const Product = () => {
                             ))}
                             <li className="text-sm">
                                 <a href='#' aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                                    {product.name}
+                                    {productName}
                                 </a>
                             </li>
                         </ol>
@@ -174,7 +149,7 @@ export const Product = () => {
                         {/* Options */}
                         <div className="mt-4 lg:mt-0 lg:row-span-3">
                             <h2 className="sr-only">Product information</h2>
-                            <p className="text-3xl text-gray-900">{productPrice}</p>
+                            <p className="text-3xl text-gray-900">$ {productPrice}</p>
 
                             {/* Reviews */}
                             <div className="mt-6">
@@ -211,6 +186,10 @@ export const Product = () => {
                                                 <RadioGroup.Option
                                                     key={color.name}
                                                     value={color}
+                                                    onClick={() => {
+                                                        setColor(color.name)
+                                                        setSelectedColor(color.name);
+                                                    }}
                                                     className={({ active, checked }) =>
                                                         classNames(
                                                             color.selectedClass,
@@ -236,6 +215,26 @@ export const Product = () => {
                                     </RadioGroup>
                                 </div>
 
+                                {/* Quantity */}
+                                <div class="flex flex-1 items-end justify-between text-sm mt-10">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="text-sm text-gray-900 font-medium">Quantity</h3>
+                                    </div>
+                                    <button onClick={() => handleQuantity("decrease")} type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                        <span class="sr-only">Decrease</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+                                        </svg>
+                                    </button>
+                                    <p class="text-gray-500">Qty {quantity}</p>
+                                    <button onClick={() => handleQuantity("increase")} type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                        <span class="sr-only">Increase</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                                        </svg>
+                                    </button>
+                                </div>
+
                                 {/* Sizes */}
                                 <div className="mt-10">
                                     <div className="flex items-center justify-between">
@@ -252,6 +251,10 @@ export const Product = () => {
                                                 <RadioGroup.Option
                                                     key={size.name}
                                                     value={size}
+                                                    onClick={() => {
+                                                        setSelectedSize(size.name);
+                                                        setSize(size.name)
+                                                    }}
                                                     disabled={!size.inStock}
                                                     className={({ active }) =>
                                                         classNames(
@@ -299,10 +302,14 @@ export const Product = () => {
                                 </div>
 
                                 <button
+                                    onClick={handleAddToCart}
+                                    disabled={itemInStock ? false : true}
                                     type="submit"
-                                    className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    className={itemInStock ? "mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        :
+                                        "mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white cursor-not-allowed disabled:opacity-50"}
                                 >
-                                    Add to cart
+                                    {itemInStock ? "Add to cart" : "Out of stock"}
                                 </button>
                             </form>
                         </div>

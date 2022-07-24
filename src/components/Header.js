@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import ItemLists from './ItemLists';
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from 'react-redux';
 
 const Header = () => {
     const [isLoggedIn, setIsloggedIn] = useState(true);
     const [open, setOpen] = useState(false);
-    const [showProfile, setShowProfile] = useState(false)
+    const [showProfile, setShowProfile] = useState(false);
     let navigate = useNavigate();
+    const cartQty = useSelector(state => state.cart.qty);
+    const user = useSelector(state => state.user.currentUser);
 
     const handleShow = (e) => {
         e.preventDefault()
@@ -71,11 +73,11 @@ const Header = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
-                                <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">0</span>
+                                <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">{cartQty}</span>
                             </button>
 
                             {
-                                !isLoggedIn && <div className='flex'>
+                                !user && <div className='flex'>
                                     <button onClick={() => {
                                         navigate('/login');
                                     }} className="hidden sm:block sm:ml-6 whitespace-nowrap text-base font-medium text-gray-400 hover:text-white">
@@ -95,11 +97,11 @@ const Header = () => {
 
 
                             {
-                                isLoggedIn && <div className="ml-3 relative">
+                                user && <div className="ml-3 relative">
                                     <div>
                                         <button onClick={openUserProfile} type="button" className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                             <span className="sr-only">Open user menu</span>
-                                            <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                            <img className="h-8 w-8 rounded-full" src="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg" alt="" />
                                         </button>
                                     </div>
 

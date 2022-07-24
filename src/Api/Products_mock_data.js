@@ -2,7 +2,7 @@ export const Products = [
     {
         id: 1,
         name: 'Basic TShirt',
-        price: '$192',
+        price: 192,
         reviews: { average: 4, totalCount: 117 },
         breadcrumbs: [
             { id: 1, name: 'Men', href: '#' },
@@ -52,12 +52,13 @@ export const Products = [
         ],
         details:
             'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-        category: "men"
+        category: "men",
+        inStock: true
     },
     {
         id: 2,
         name: 'Basic Tee 6-Pack',
-        price: '$110',
+        price: 110,
         reviews: { average: 5, totalCount: 100 },
         breadcrumbs: [
           { id: 1, name: 'Men', href: '#' },
@@ -107,12 +108,13 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-          category: "unisex"
+          category: "unisex",
+          inStock: true
       },
       {
         id: 3,
         name: 'Wool Shirt',
-        price: '$70',
+        price: 70,
         reviews: { average: 3, totalCount: 17 },
         breadcrumbs: [
           { id: 1, name: 'Men', href: '#' },
@@ -167,7 +169,7 @@ export const Products = [
       {
         id: 4,
         name: 'Round Polo Shirt',
-        price: '$55',
+        price: 55,
         reviews: { average: 5, totalCount: 200 },
         breadcrumbs: [
           { id: 1, name: 'Men', href: '#' },
@@ -217,12 +219,13 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-          category: "unisex"
+          category: "unisex",
+          inStock: false
       },
       {
         id: 5,
         name: 'Round Polo Shirt',
-        price: '$55',
+        price: 55,
         reviews: { average: 4, totalCount: 158 },
         breadcrumbs: [
           { id: 1, name: 'Men', href: '#' },
@@ -272,12 +275,13 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-          category: "men"
+          category: "men",
+          inStock: true
       },
       {
         id: 6,
         name: 'White Sweat Polo',
-        price: '$35',
+        price: 35,
         reviews: { average: 5, totalCount: 300 },
         breadcrumbs: [
           { id: 1, name: 'Men', href: '#' },
@@ -327,12 +331,13 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-          category: "men"
+          category: "men",
+          inStock: true
       },
       {
         id: 7,
         name: 'Moscow Shirt',
-        price: '$35',
+        price: 35,
         reviews: { average: 3, totalCount: 115 },
         breadcrumbs: [
           { id: 1, name: 'Men', href: '#' },
@@ -382,12 +387,13 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-          category: "women"
+          category: "women",
+          inStock: true
       },
       {
         id: 8,
         name: 'Round Long Polo',
-        price: '$35',
+        price: 35,
         reviews: { average: 2, totalCount: 67 },
         breadcrumbs: [
           { id: 1, name: 'Men', href: '#' },
@@ -437,12 +443,13 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-          category: "women"
+          category: "women",
+          inStock: true
       },
       {
         id: 9,
         name: 'Sleeves',
-        price: '$35',
+        price: 35,
         reviews: { average: 4, totalCount: 17 },
         breadcrumbs: [
           { id: 1, name: 'Men', href: '#' },
@@ -492,7 +499,8 @@ export const Products = [
         ],
         details:
           'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-          category: "women"
+          category: "women",
+          inStock: false
       },
 ]
 

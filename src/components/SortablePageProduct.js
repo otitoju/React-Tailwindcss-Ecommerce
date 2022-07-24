@@ -6,6 +6,7 @@ import FilterList from './FilterList';
 import { FilterCategory } from './FilterCategory';
 import { Pagination } from './Pagination';
 
+
 const SortablePageproduct = () => {
   const [products, setProducts] = useState([]);
   const [toggleSort, setToggleList] = useState(false);
@@ -30,17 +31,17 @@ const SortablePageproduct = () => {
     getProducts();
   }, []);
 
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-    const currentProducts = products.slice(firstPageIndex, lastPageIndex);
+  const firstPageIndex = (currentPage - 1) * PageSize;
+  const lastPageIndex = firstPageIndex + PageSize;
+  const currentProducts = products.slice(firstPageIndex, lastPageIndex);
 
   return (
     <div>
 
       <div className="bg-white">
         <div>
-            <FilterList show={toggleFilter} onClick={handleFilteerToggle} />
-            {/* MAIN PAGE */}
+          <FilterList show={toggleFilter} onClick={handleFilteerToggle} />
+          {/* MAIN PAGE */}
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">All Products</h1>
@@ -49,7 +50,7 @@ const SortablePageproduct = () => {
                 <div className="relative inline-block text-left">
                   <div>
                     <button onClick={handleSortToggle} type="button" className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900" id="menu-button" aria-expanded="false" aria-haspopup="true">
-                      Sort
+                      Sort Products
 
                       <svg className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -57,7 +58,7 @@ const SortablePageproduct = () => {
                     </button>
                   </div>
 
-                  <SortList show={toggleSort}/>
+                  <SortList show={toggleSort} />
                 </div>
 
                 <button type="button" className="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500">
@@ -106,10 +107,10 @@ const SortablePageproduct = () => {
                     </li>
                   </ul>
 
-                 
 
-                  
-                  <FilterCategory/>
+
+
+                  <FilterCategory />
                 </form>
                 {/* Right span */}
                 <div className="lg:col-span-3">
@@ -118,11 +119,11 @@ const SortablePageproduct = () => {
                       {/* <ProductCard products={products} /> */}
                       <ProductCard products={currentProducts} />
                     </div>
-                    <Pagination 
-                    currentPage={currentPage}
-                    totalCount={products.length}
-                    pageSize={PageSize}
-                    onPageChange={page => setCurrentPage(page)}
+                    <Pagination
+                      currentPage={currentPage}
+                      totalCount={products.length}
+                      pageSize={PageSize}
+                      onPageChange={page => setCurrentPage(page)}
                     />
                   </div>
                 </div>

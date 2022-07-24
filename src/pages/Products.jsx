@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { getProductByCategory } from '../Api/api';
 import ProductCard from '../components/ProductCard';
 import { useParams } from 'react-router-dom';
+import { addProduct } from '../Redux/cartRedux';
+import { useDispatch } from 'react-redux';
 
 const Products = () => {
     const [productCategory, setProductCategory] = useState([]);
+    const [quantity, setQuantity] = useState(1);
 
+    const dispatch = useDispatch();
     let { category } = useParams();
     const getCategoryProducts = async () => {
         const products = await getProductByCategory(category);
@@ -15,6 +19,12 @@ const Products = () => {
     useEffect(() => {
         getCategoryProducts();
     }, []);
+
+    const handleAddToCart = (e, id) => {
+        e.preventDefault();
+        const addItemToCart = 
+        dispatch(addProduct(product, quantity))
+    }
 
   return (
     <div>

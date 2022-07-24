@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -7,9 +7,11 @@ import { Product } from './pages/Product';
 import ItemLists from './components/ItemLists';
 import LandingPage from './pages/LandingPage';
 import SortablePageproduct from './components/SortablePageProduct';
-import './App.css';
+import { Error404Page } from './components/Error404Page';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const user = useSelector(state => state.user.currentUser);
   return (
     <div>
       <Header />
@@ -17,10 +19,11 @@ function App() {
         <Route path='/' element={<LandingPage />}/>
         <Route path='/products' element={<SortablePageproduct />}/>
         <Route path='/items' element={<ItemLists />}/>
-        <Route path='/login' element={<Login />}/>
+        <Route path='/login' element={user ? <Navigate to="/" /> : <Login />}/>
         <Route path='/product/:productId' element={<Product />}/>
-        <Route path='/register' element={<Register />}/>
+        <Route path='/register' element={user ? <Navigate to="/" /> : <Register />}/>
         <Route path='/products/:category' element={<Products />}/>
+        <Route path='*' element={<Error404Page />}/>
       </Routes>
     </div>
   );

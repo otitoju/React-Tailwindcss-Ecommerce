@@ -68,7 +68,10 @@ export const Pagination = (props) => {
 
                                 return (
                                     <button
-                                        className='z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium'
+                                        className={pageNumber === currentPage ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium'
+                                            :
+                                            'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium'}
+
                                         onClick={() => onPageChange(pageNumber)}
                                     >
                                         {pageNumber}
@@ -76,13 +79,6 @@ export const Pagination = (props) => {
                                 );
                             })}
 
-                            {/* <a href="#" aria-current="page" class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"> 1 </a>
-                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"> 2 </a>
-                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium"> 3 </a>
-                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"> ... </span>
-                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium"> 8 </a>
-                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"> 9 </a>
-                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"> 10 </a> */}
                             <button disabled={currentPage === lastPage ? true : false} onClick={onNext} class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                                 <span class="sr-only">Next</span>
 
@@ -99,79 +95,4 @@ export const Pagination = (props) => {
     )
 }
 
-
-// import React from 'react';
-// import classnames from 'classnames';
-// import { usePagination, DOTS } from './usePagination';
-
-// const Pagination = props => {
-//   const {
-//     onPageChange,
-//     totalCount,
-//     siblingCount = 1,
-//     currentPage,
-//     pageSize,
-//     className
-//   } = props;
-
-//   const paginationRange = usePagination({
-//     currentPage,
-//     totalCount,
-//     siblingCount,
-//     pageSize
-//   });
-
-//   if (currentPage === 0 || paginationRange.length < 2) {
-//     return null;
-//   }
-
-//   const onNext = () => {
-//     onPageChange(currentPage + 1);
-//   };
-
-//   const onPrevious = () => {
-//     onPageChange(currentPage - 1);
-//   };
-
-//   let lastPage = paginationRange[paginationRange.length - 1];
-//   return (
-//     <ul
-//       className={classnames('pagination-container', { [className]: className })}
-//     >
-//       <li
-//         className={classnames('pagination-item', {
-//           disabled: currentPage === 1
-//         })}
-//         onClick={onPrevious}
-//       >
-//         <div className="arrow left" />
-//       </li>
-//       {paginationRange.map(pageNumber => {
-//         if (pageNumber === DOTS) {
-//           return <li className="pagination-item dots">&#8230;</li>;
-//         }
-
-//         return (
-//           <li
-//             className={classnames('pagination-item', {
-//               selected: pageNumber === currentPage
-//             })}
-//             onClick={() => onPageChange(pageNumber)}
-//           >
-//             {pageNumber}
-//           </li>
-//         );
-//       })}
-//       <li
-//         className={classnames('pagination-item', {
-//           disabled: currentPage === lastPage
-//         })}
-//         onClick={onNext}
-//       >
-//         <div className="arrow right" />
-//       </li>
-//     </ul>
-//   );
-// };
-
-// export default Pagination;
+// https://codedec.com/tutorials/how-to-implement-search-in-react-js-with-json/
