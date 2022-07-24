@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import ItemLists from './ItemLists';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { HeaderItem, CategoriesDropdownList } from '../Api/HeaderList_mock_data';
+import CategoryList from './CategoryList';
+import { MobileHamburgerMenu } from './MobileHamburgerMenu';
 
 const Header = () => {
     const [isLoggedIn, setIsloggedIn] = useState(true);
     const [open, setOpen] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
+    const [openCategories, setOpenCategories] = useState(false);
+    const [showMenuHamburger, setShowMenuHamburger] = useState(false)
+
+
     let navigate = useNavigate();
     const cartQty = useSelector(state => state.cart.qty);
     const user = useSelector(state => state.user.currentUser);
@@ -29,6 +36,15 @@ const Header = () => {
     const openUserProfile = () => {
         setShowProfile(!showProfile);
     }
+
+    const handleOpenCategories = () => {
+        setOpenCategories(!openCategories);
+    }
+
+    const handleMenuHamburger = () => {
+        setShowMenuHamburger(!showMenuHamburger);
+    }
+
     return (
         <div>
             <nav className="bg-gray-800">
@@ -36,7 +52,7 @@ const Header = () => {
                     <div className="relative flex items-center justify-between h-16">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
 
-                            <button type="button" className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                            <button onClick={handleMenuHamburger} type="button" className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                                 <span className="sr-only">Open main menu</span>
 
                                 <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
@@ -55,14 +71,21 @@ const Header = () => {
                             </div>
                             <div className="hidden sm:block sm:ml-6">
                                 <div className="flex space-x-4">
+                                    {
+                                        HeaderItem.map(item => (
+                                            <Link to={item.url} className="inline-flex text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" key={item.id}>{item.title}</Link>
+                                        ))
+                                    }
 
-                                    <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
+                                    <div className="relative inline-block text-left">
+                                        <button onClick={handleOpenCategories} className="inline-flex text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" id="menu-button" aria-expanded="true" aria-haspopup="true">Categories
+                                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
 
-                                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Products</a>
-
-                                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blog</a>
-
-                                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Categories</a>
+                                        <CategoryList menuList={CategoriesDropdownList} show={openCategories} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +96,7 @@ const Header = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
-                                <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">{cartQty}</span>
+                                <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">{cartQty}</span>
                             </button>
 
                             {
@@ -119,16 +142,13 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-                <div className="sm:hidden" id="mobile-menu">
+
+                {
+                    showMenuHamburger && <div className="sm:hidden" id="mobile-menu">
                     <div className="px-2 pt-2 pb-3 space-y-1">
 
-                        <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
-
-                        <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
-
-                        <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-
-                        <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
+                        <MobileHamburgerMenu menu={HeaderItem}/>
+                        
                         <button onClick={() => {
                             navigate('/login');
                         }} className=" whitespace-nowrap text-base font-medium text-gray-400 hover:text-white">
@@ -144,6 +164,8 @@ const Header = () => {
                         </button>
                     </div>
                 </div>
+                }
+                
             </nav>
             <ItemLists show={open} onClick={handleHide} />
         </div>

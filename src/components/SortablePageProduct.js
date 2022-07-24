@@ -107,16 +107,12 @@ const SortablePageproduct = () => {
                     </li>
                   </ul>
 
-
-
-
                   <FilterCategory />
                 </form>
                 {/* Right span */}
                 <div className="lg:col-span-3">
                   <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 lg:h-full">
                     <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-                      {/* <ProductCard products={products} /> */}
                       <ProductCard products={currentProducts} />
                     </div>
                     <Pagination
