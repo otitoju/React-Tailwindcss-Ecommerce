@@ -1,5 +1,5 @@
 const Product = require("../models/Product");
-
+const SearchUtil = require("../utils/SearchHelper");
 class ProductController {
     static async CreateNewProduct(req, res) {
         try {
@@ -109,6 +109,18 @@ class ProductController {
                 message: "INTERNAL_SERVER_ERROR",
                 error: error.message
             });
+        }
+    }
+
+    static async Search(req, res, next) {
+        try {
+        const pageNo = req.query.pageNo ? parseInt(req.query.pageNo.toString()) - 1 : 0;
+        const pageSize = req.query.pageSize ? parseInt(req.query.pageSize.toString()) : 20;
+        const productSearchResult = await SearchUtil.search(req.body, pageNo, pageSize);
+        const totalCount = await SearchUtil.countSearch(req.body);
+        return res.status(201).json({ totalCount: totalCount, records: productSearchResult, pageNo: pageNo, pageSize: pageSize });
+        } catch (error) {
+            next(error.message);
         }
     }
 }

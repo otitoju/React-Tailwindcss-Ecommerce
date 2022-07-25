@@ -36,5 +36,9 @@ ProductSchema.pre('remove', async function (next) {
   }
 });
 
+ProductSchema.pre("save", async function (next) {
+  await Review.bulkSave({})
+});
+
 module.exports = mongoose.model("Product", ProductSchema);
 // https://stackoverflow.com/questions/11904159/automatically-remove-referencing-objects-on-deletion-in-mongodb
