@@ -3,7 +3,7 @@ const Product = require("../models/Product");
 class ProductController {
     static async CreateNewProduct(req, res) {
         try {
-            const {name, price, preview_img, categories, description,  details, } = req.body;
+            const { name, price, preview_img, categories, description, details, } = req.body;
 
             const productHighlight1 = req.body.highlight1
             const productHighlight2 = req.body.productHighlight2
@@ -12,7 +12,7 @@ class ProductController {
             const productHighlight5 = req.body.highlight5
 
             const HighlightModel = [productHighlight1, productHighlight2, productHighlight3, productHighlight4, productHighlight5];
-            
+
             const productModel = {
                 name: name,
                 price: price,
@@ -29,7 +29,7 @@ class ProductController {
                 message: "CREATED",
                 info: newProduct
             });
-            
+
         } catch (error) {
             return res.json({
                 status: 500,
@@ -42,9 +42,9 @@ class ProductController {
     static async deleteProductWithCorrespondingAllRelationship(req, res, next) {
         try {
             const { productId } = req.params;
-            const product = await Product.findOne({ "_id": productId});
+            const product = await Product.findOne({ "_id": productId });
             product.remove();
-            
+
             return res.json({
                 status: 200,
                 message: "DELETED",
@@ -53,6 +53,57 @@ class ProductController {
 
         } catch (error) {
             next(error)
+            return res.json({
+                status: 500,
+                message: "INTERNAL_SERVER_ERROR",
+                error: error.message
+            });
+        }
+    }
+
+    static async getAllProducts(req, res) {
+        try {
+            const products = await Product.find().sort({ "_id": -1 });
+            if (!products) {
+                return res.json({
+                    status: 400,
+                    message: "NO_RECORD_FOUND",
+                });
+            }
+            else {
+                return res.json({
+                    status: 200,
+                    message: "OK",
+                    products: products
+                });
+            }
+        } catch (error) {
+            return res.json({
+                status: 500,
+                message: "INTERNAL_SERVER_ERROR",
+                error: error.message
+            });
+        }
+    }
+
+    static async getOneProduct(req, res) {
+        try {
+            const { productId } = req.params;
+            const product = await Product.findOne({ _id: productId });
+            if (!product) {
+                return res.json({
+                    status: 400,
+                    message: "NO_RECORD_FOUND",
+                });
+            }
+            else {
+                return res.json({
+                    status: 200,
+                    message: "OK",
+                    product: product
+                });
+            }
+        } catch (error) {
             return res.json({
                 status: 500,
                 message: "INTERNAL_SERVER_ERROR",
