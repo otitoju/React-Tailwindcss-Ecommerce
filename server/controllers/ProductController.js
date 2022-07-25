@@ -38,6 +38,28 @@ class ProductController {
             });
         }
     }
+
+    static async deleteProductWithCorrespondingAllRelationship(req, res, next) {
+        try {
+            const { productId } = req.params;
+            const product = await Product.findOne({ "_id": productId});
+            product.remove();
+            
+            return res.json({
+                status: 200,
+                message: "DELETED",
+                product: product
+            });
+
+        } catch (error) {
+            next(error)
+            return res.json({
+                status: 500,
+                message: "INTERNAL_SERVER_ERROR",
+                error: error.message
+            });
+        }
+    }
 }
 
 module.exports = ProductController;
