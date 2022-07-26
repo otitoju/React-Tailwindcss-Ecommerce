@@ -118,7 +118,12 @@ class ProductController {
         const pageSize = req.query.pageSize ? parseInt(req.query.pageSize.toString()) : 20;
         const productSearchResult = await SearchUtil.search(req.body, pageNo, pageSize);
         const totalCount = await SearchUtil.countSearch(req.body);
-        return res.status(201).json({ totalCount: totalCount, records: productSearchResult, pageNo: pageNo, pageSize: pageSize });
+        return res.json({ 
+            totalCount: totalCount, 
+            records: productSearchResult, 
+            pageNo: pageNo, 
+            pageSize: pageSize 
+        });
         } catch (error) {
             next(error.message);
         }
@@ -133,7 +138,11 @@ class ProductController {
                     { name: { $regex: key } },
                     { price: { $regex: key } },
                 ]
-            })
+            });
+
+            return res.json({
+                data: data
+            });
         } catch (error) {
             next(error.message);
         }
