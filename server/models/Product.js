@@ -42,3 +42,5 @@ ProductSchema.pre("save", async function (next) {
 
 module.exports = mongoose.model("Product", ProductSchema);
 // https://stackoverflow.com/questions/11904159/automatically-remove-referencing-objects-on-deletion-in-mongodb
+// https://www.toptal.com/express-js/nodejs-typescript-rest-api-pt-3
+// https://archive.org/details/free-course-site.com-udemy-node.js-api-masterclass-with-express-mongo-db/8.+Authentication%2C+Users++Permissions+-+Part+2/5.+Forgot+Password+-+Send+Email.mp4
