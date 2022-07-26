@@ -6,6 +6,7 @@ const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin, } = requi
 const CartController = require("../controllers/CartController");
 const ProductController = require("../controllers/ProductController");
 const OrderController = require('../controllers/Order');
+const UserController = require("../controllers/User");
 
 
 // Product API (ONLY ADMIN HAS ACCESS TO THIS ROUTES);
@@ -15,6 +16,12 @@ router.get('/api/v1/products', ProductController.getAllProducts);
 router.get('/api/v1/product/:productId', ProductController.getOneProduct);
 router.post('/api/v1/product/search', ProductController.Search);
 router.get('/api/v1/product/search/:key', ProductController.SearchQuery);
+
+// User API
+router.get('/api/v1/users', UserController.getUsers);
+router.get('/api/v1/user/:userId', UserController.getUser);
+router.delete('/api/v1/user/:userId', UserController.deleteUser);
+router.get('/api/v1/user/stats', UserController.getUserStatistic);
 
 // Auth API
 router.post('/api/v1/register', AuthController.CreateNewAccount);
