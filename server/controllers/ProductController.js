@@ -123,6 +123,21 @@ class ProductController {
             next(error.message);
         }
     }
+
+    // Another search query
+    static async SearchQuery(req, res, next) {
+        try {
+            const { key } = req.params;
+            const data = await Product.find({
+                "$or": [
+                    { name: { $regex: key } },
+                    { price: { $regex: key } },
+                ]
+            })
+        } catch (error) {
+            next(error.message);
+        }
+    }
 }
 
 module.exports = ProductController;

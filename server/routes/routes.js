@@ -13,6 +13,7 @@ router.delete('/api/v1/product/delete/:productId', ProductController.deleteProdu
 router.get('/api/v1/products', ProductController.getAllProducts);
 router.get('/api/v1/product/:productId', ProductController.getOneProduct);
 router.post('/search', ProductController.Search);
+router.get('/search/:key', ProductController.SearchQuery);
 
 // Auth API
 router.post('/api/v1/register', AuthController.CreateNewAccount);
