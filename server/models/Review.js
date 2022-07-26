@@ -6,7 +6,7 @@ const ReviewSchema = new mongoose.Schema(
     from: { type: String, required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
-    rating: { type: Number },
+    rating: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

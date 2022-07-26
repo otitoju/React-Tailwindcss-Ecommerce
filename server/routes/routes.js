@@ -16,6 +16,11 @@ router.get('/api/v1/products', ProductController.getAllProducts);
 router.get('/api/v1/product/:productId', ProductController.getOneProduct);
 router.post('/api/v1/product/search', ProductController.Search);
 router.get('/api/v1/product/search/:key', ProductController.SearchQuery);
+router.post('/api/v1/product/review/:productId', ProductController.AddReview);
+router.post('/api/v1/product/color/:productId', ProductController.AddProductColor);
+router.post('/api/v1/product/size/:productId', ProductController.AddProductSize);
+router.post('/api/v1/product/image/:productId', ProductController.AddProductImage);
+
 
 // User API
 router.get('/api/v1/users', UserController.getUsers);
