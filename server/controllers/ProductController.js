@@ -63,7 +63,7 @@ class ProductController {
 
     static async getAllProducts(req, res) {
         try {
-            const products = await Product.find().sort({ "_id": -1 });
+            const products = await Product.find().sort({ "_id": -1 }).lean();
             if (!products) {
                 return res.json({
                     status: 400,
