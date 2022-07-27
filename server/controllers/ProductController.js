@@ -321,3 +321,5 @@ class ProductController {
 }
 
 module.exports = ProductController;
+
+// https://kb.objectrocket.com/mongo-db/mongoose-delete-many-by-id-932

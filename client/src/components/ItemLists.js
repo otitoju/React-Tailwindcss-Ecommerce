@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
 import config from '../config';
+import { increaseQuantity, removeFromCart } from '../Redux/cartRedux';
 
 const KEY = config.REACT_STRIPE_KEY
 
@@ -10,27 +11,35 @@ const ItemLists = ({ show, onClick }) => {
     const [carts, setCart] = useState([]);
     const [stripeToken, setStripeToken] = useState(null);
     const cartItems = useSelector(state => state.cart);
+    const dispatch = useDispatch();
 
     const onToken = (token) => {
         setStripeToken(token);
     };
 
-    const handleQuantity = (type, id) => {
-        const item = carts.filter(el => {
-            return el.id === id
-        });
+    const handleQuantity = (id) => {
+        console.log(typeof(id));
+        console.log(cartItems.products)
+        dispatch(increaseQuantity(id));
+        // const item = carts.filter(el => {
+        //     return el.id === id
+        // });
 
-        if (type === "decrease") {
-            console.log(item[0].qty);
-            quantity > 1 && setQuantity(item[0].qty - 1);
-        }
-        else {
-            setQuantity(item[0].qty + 1);
-        }
+        // if (type === "decrease") {
+        //     console.log(item[0].qty);
+        //     quantity > 1 && setQuantity(item[0].qty - 1);
+        // }
+        // else {
+        //     setQuantity(item[0].qty + 1);
+        // }
     }
 
     const getAllCarts = () => {
         setCart([])
+    }
+
+    const removeItemFromCart = ( id, productPrice, quantity) => {
+        dispatch(removeFromCart({id, productPrice, quantity}));
     }
 
     useEffect(() => {
@@ -84,14 +93,14 @@ const ItemLists = ({ show, onClick }) => {
                                                                         <p className="mt-1 text-sm text-gray-500">{cart.size}</p>
                                                                     </div>
                                                                     <div className="flex flex-1 items-end justify-between text-sm">
-                                                                        <button onClick={() => handleQuantity("decrease", cart.id)} type="button" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                                                        <button onClick={() => handleQuantity(cart.id)} type="button" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
                                                                             <span className="sr-only">Decrease</span>
                                                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
                                                                             </svg>
                                                                         </button>
                                                                         <p className="text-gray-500">Qty {cart.quantity}</p>
-                                                                        <button onClick={() => handleQuantity("increase", cart.id)} type="button" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                                                        <button onClick={() => handleQuantity(cart.id)} type="button" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
                                                                             <span className="sr-only">Increase</span>
                                                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -99,7 +108,7 @@ const ItemLists = ({ show, onClick }) => {
                                                                         </button>
 
                                                                         <div className="flex">
-                                                                            <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                                            <button onClick={() => removeItemFromCart(cart.id, cart.price, cart.quantity)} type="button" className="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>

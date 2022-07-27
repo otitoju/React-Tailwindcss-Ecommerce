@@ -12,10 +12,24 @@ const cartSlice = createSlice({
             state.qty += 1;
             state.products.push(action.payload);
             state.total += action.payload.productPrice * action.payload.quantity;
-            //localStorage.setItem("cartItems", JSON.stringify(state.products.push(action.payload)));
+        },
+        increaseQuantity: (state, action) => {
+            console.log(action.payload);
+            state.products.filter(el => {
+
+                if(el.id === action.payload) {
+                    console.log(el)
+                }
+            })
+        },
+        removeFromCart: (state, action) => {
+            const nextCartItems = state.products.filter((el) => el.id !== action.payload.id );
+            state.qty -= 1;
+            state.products = nextCartItems;
+            state.total -= action.payload.productPrice * action.payload.quantity;
         }
     }
 });
 
-export const { addProduct } = cartSlice.actions;
+export const { addProduct, increaseQuantity, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
