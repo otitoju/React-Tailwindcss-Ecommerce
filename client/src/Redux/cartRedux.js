@@ -14,16 +14,20 @@ const cartSlice = createSlice({
             state.total += action.payload.productPrice * action.payload.quantity;
         },
         increaseQuantity: (state, action) => {
-            console.log(action.payload);
-            state.products.filter(el => {
+            const itemIndex = state.products.findIndex(cartItem => cartItem.id === action.payload);
+            state.products[itemIndex].quantity += 1;
+            state.total += state.products[itemIndex].price;
+        },
+        decreaseQuantity: (state, action) => {
+            const itemIndex = state.products.findIndex(cartItem => cartItem.id === action.payload);
 
-                if(el.id === action.payload) {
-                    console.log(el)
-                }
-            })
+            if (state.products[itemIndex].quantity > 1) {
+                state.products[itemIndex].quantity -= 1;
+                state.total -= state.products[itemIndex].price;
+            }
         },
         removeFromCart: (state, action) => {
-            const nextCartItems = state.products.filter((el) => el.id !== action.payload.id );
+            const nextCartItems = state.products.filter((el) => el.id !== action.payload.id);
             state.qty -= 1;
             state.products = nextCartItems;
             state.total -= action.payload.productPrice * action.payload.quantity;
@@ -31,5 +35,5 @@ const cartSlice = createSlice({
     }
 });
 
-export const { addProduct, increaseQuantity, removeFromCart } = cartSlice.actions;
+export const { addProduct, increaseQuantity, removeFromCart, decreaseQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

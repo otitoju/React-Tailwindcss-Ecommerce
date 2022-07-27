@@ -5,7 +5,8 @@ import { useParams } from 'react-router-dom';
 import { getProductById } from '../Api/api';
 import { addProduct } from '../Redux/cartRedux';
 import { useDispatch } from 'react-redux';
-
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -33,7 +34,6 @@ export const Product = () => {
     const dispatch = useDispatch();
     const { productId } = useParams();
     const getProduct = async () => {
-        ;
         const product = await getProductById(parseInt(productId));
         setProduct(product);
 
@@ -64,10 +64,11 @@ export const Product = () => {
     const handleAddToCart = (e) => {
         e.preventDefault();
         if(size === "" || color === "") {
-            alert("Please select a size and color");
+            toast.warn("Please select a size and color");
         }
         else {
             dispatch(addProduct({ ...product, quantity, productPrice, color, size }));
+            toast.success(`${productName} added to cart.`);
         }
         
     }
@@ -311,6 +312,7 @@ export const Product = () => {
                                 >
                                     {itemInStock ? "Add to cart" : "Out of stock"}
                                 </button>
+                                <ToastContainer autoClose={5000} />
                             </form>
                         </div>
 

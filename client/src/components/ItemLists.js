@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
 import config from '../config';
-import { increaseQuantity, removeFromCart } from '../Redux/cartRedux';
+import { increaseQuantity, removeFromCart, decreaseQuantity } from '../Redux/cartRedux';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const KEY = config.REACT_STRIPE_KEY
 
@@ -42,6 +44,10 @@ const ItemLists = ({ show, onClick }) => {
         dispatch(removeFromCart({id, productPrice, quantity}));
     }
 
+    const decreaseItemQuantity = (id) => {
+        dispatch(decreaseQuantity(id));
+    }
+
     useEffect(() => {
         getAllCarts();
     }, []);
@@ -50,6 +56,7 @@ const ItemLists = ({ show, onClick }) => {
         <div style={{
             display: show ? 'block' : 'none'
         }}>
+            <ToastContainer autoClose={5000}/>
             <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
@@ -93,7 +100,7 @@ const ItemLists = ({ show, onClick }) => {
                                                                         <p className="mt-1 text-sm text-gray-500">{cart.size}</p>
                                                                     </div>
                                                                     <div className="flex flex-1 items-end justify-between text-sm">
-                                                                        <button onClick={() => handleQuantity(cart.id)} type="button" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                                                        <button onClick={() => decreaseItemQuantity(cart.id)} type="button" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
                                                                             <span className="sr-only">Decrease</span>
                                                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
