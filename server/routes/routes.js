@@ -20,6 +20,7 @@ router.post('/api/v1/product/review/:productId', ProductController.AddReview);
 router.post('/api/v1/product/color/:productId', ProductController.AddProductColor);
 router.post('/api/v1/product/size/:productId', ProductController.AddProductSize);
 router.post('/api/v1/product/image/:productId', ProductController.AddProductImage);
+router.post('/api/v1/products/published', ProductController.getAllPublishedProducts);
 
 
 // User API
@@ -41,6 +42,7 @@ router.get('/api/v1/carts', verifyTokenAndAdmin, CartController.GetAllCarts);
 
 // Stripe API
 router.post('/api/v1/payment/stripe', stripe.StripePayment);
+router.post('/api/v1/payment/create', stripe.StripeCheckout);
 
 // Order API
 router.post('/api/v1/order/neworder', OrderController.newOrder);

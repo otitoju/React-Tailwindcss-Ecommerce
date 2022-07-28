@@ -5,6 +5,7 @@ import config from '../config';
 import { increaseQuantity, removeFromCart, decreaseQuantity } from '../Redux/cartRedux';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 
 const KEY = config.REACT_STRIPE_KEY
 
@@ -13,6 +14,7 @@ const ItemLists = ({ show, onClick }) => {
     const [carts, setCart] = useState([]);
     const [stripeToken, setStripeToken] = useState(null);
     const cartItems = useSelector(state => state.cart);
+    const user = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch();
 
     const onToken = (token) => {
@@ -20,28 +22,30 @@ const ItemLists = ({ show, onClick }) => {
     };
 
     const handleQuantity = (id) => {
-        console.log(typeof(id));
+        console.log(typeof (id));
         console.log(cartItems.products)
         dispatch(increaseQuantity(id));
-        // const item = carts.filter(el => {
-        //     return el.id === id
-        // });
+    }
 
-        // if (type === "decrease") {
-        //     console.log(item[0].qty);
-        //     quantity > 1 && setQuantity(item[0].qty - 1);
-        // }
-        // else {
-        //     setQuantity(item[0].qty + 1);
-        // }
+    const handleCheckout = async () => {
+        const products = cartItems.products;
+        await axios.post('http://localhost:5000/api/v1/payment/create-checkout-session', {
+            products,
+            userId: user.id
+        }).then( (res) => {
+            if(res.data.url) {
+                window.location.href = res.data.url
+            }
+        }).catch((err) => console.error);
+
     }
 
     const getAllCarts = () => {
         setCart([])
     }
 
-    const removeItemFromCart = ( id, productPrice, quantity) => {
-        dispatch(removeFromCart({id, productPrice, quantity}));
+    const removeItemFromCart = (id, productPrice, quantity) => {
+        dispatch(removeFromCart({ id, productPrice, quantity }));
     }
 
     const decreaseItemQuantity = (id) => {
@@ -56,7 +60,7 @@ const ItemLists = ({ show, onClick }) => {
         <div style={{
             display: show ? 'block' : 'none'
         }}>
-            <ToastContainer autoClose={5000}/>
+            <ToastContainer autoClose={5000} />
             <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
@@ -140,7 +144,7 @@ const ItemLists = ({ show, onClick }) => {
                                         </div>
                                         <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                         <div className="mt-6">
-                                            <StripeCheckout
+                                            {/* <StripeCheckout
                                                 name="Otitoju Shopping Mall"
                                                 image="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
                                                 billingAddress
@@ -154,7 +158,11 @@ const ItemLists = ({ show, onClick }) => {
                                                     "flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 cursor-not-allowed disabled:opacity-50"
                                                     : "flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"}
                                                 >Checkout</button>
-                                            </StripeCheckout>
+                                            </StripeCheckout> */}
+                                            <button onClick={handleCheckout} disabled={cartItems.qty === 0 ? true : false} className={cartItems.qty === 0 ?
+                                                "flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 cursor-not-allowed disabled:opacity-50"
+                                                : "flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"}
+                                            >Checkout</button>
 
                                         </div>
                                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">

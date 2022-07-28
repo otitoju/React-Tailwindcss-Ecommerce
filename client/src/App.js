@@ -8,6 +8,7 @@ import ItemLists from './components/ItemLists';
 import LandingPage from './pages/LandingPage';
 import SortablePageproduct from './components/SortablePageProduct';
 import { Error404Page } from './components/Error404Page';
+import CheckoutSuccess from './components/CheckoutSuccess';
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/product/:productId' element={<Product />}/>
         <Route path='/register' element={user ? <Navigate to="/" /> : <Register />}/>
         <Route path='/products/:category' element={<Products />}/>
+        <Route path='/success' element={<CheckoutSuccess />}/>
         <Route path='*' element={<Error404Page />}/>
       </Routes>
     </div>

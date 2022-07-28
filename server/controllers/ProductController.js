@@ -94,6 +94,31 @@ class ProductController {
         }
     }
 
+    static async getAllPublishedProducts(req, res) {
+        try {
+            const products = await Product.find({ "isPublished": true }).sort({ "_id": -1 }).lean().populate("reviews").populate("images").populate("colors").populate("sizes");
+            if (!products) {
+                return res.json({
+                    status: 400,
+                    message: "NO_RECORD_FOUND",
+                });
+            }
+            else {
+                return res.json({
+                    status: 200,
+                    message: "OK",
+                    products: products
+                });
+            }
+        } catch (error) {
+            return res.json({
+                status: 500,
+                message: "INTERNAL_SERVER_ERROR",
+                error: error.message
+            });
+        }
+    }
+
     static async getOneProduct(req, res) {
         try {
             const { productId } = req.params;

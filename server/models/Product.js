@@ -19,6 +19,7 @@ const ProductSchema = new mongoose.Schema(
     highlights: [String],
     details: { type: String, required: true },
     inStock: { type: Boolean, default: true },
+    isPublished: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
