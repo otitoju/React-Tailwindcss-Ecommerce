@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom'
 const Chat = lazy(() => import('../../views/apps/chat'))
 const Todo = lazy(() => import('../../views/apps/todo'))
 const Calendar = lazy(() => import('../../views/apps/calendar'))
+const Products = lazy(() => import('../../views/apps/Products'))
 
 const InvoiceAdd = lazy(() => import('../../views/apps/invoice/add'))
 const InvoiceList = lazy(() => import('../../views/apps/invoice/list'))
@@ -47,6 +48,14 @@ const AppRoutes = [
   {
     element: <Todo />,
     path: '/apps/todo/tag/:tag',
+    meta: {
+      appLayout: true,
+      className: 'todo-application'
+    }
+  },
+  {
+    element: <Products />,
+    path: '/apps/products',
     meta: {
       appLayout: true,
       className: 'todo-application'

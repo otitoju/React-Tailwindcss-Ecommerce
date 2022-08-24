@@ -1,7 +1,6 @@
 // ** Icons Import
 import {
   Box,
-  Mail,
   User,
   Circle,
   Shield,
@@ -18,12 +17,6 @@ export default [
     title: 'Apps',
     icon: <Box />,
     children: [
-      {
-        id: 'email',
-        title: 'Email',
-        icon: <Mail />,
-        navLink: '/apps/email'
-      },
       {
         id: 'chat',
         title: 'Chat',

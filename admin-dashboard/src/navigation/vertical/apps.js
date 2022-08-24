@@ -1,15 +1,27 @@
 // ** Icons Import
-import { Mail, MessageSquare, CheckSquare, Calendar, FileText, Circle, ShoppingCart, User, Shield } from 'react-feather'
+import { Mail, MessageSquare, CheckSquare, Calendar, FileText, Circle, ShoppingCart, User, Shield, Users, ShoppingBag } from 'react-feather'
 
 export default [
   {
-    header: 'Apps & Pages'
+    header: 'App Category'
   },
   {
-    id: 'email',
-    title: 'Email',
-    icon: <Mail size={20} />,
-    navLink: '/apps/email'
+    id: 'products',
+    title: 'Products',
+    icon: <ShoppingCart size={20} />,
+    navLink: '/apps/products'
+  },
+  {
+    id: 'orders',
+    title: 'Orders',
+    icon: <ShoppingBag size={20}/>,
+    navLink: '/apps/orders'
+  },
+  {
+    id: 'users',
+    title: 'Users',
+    icon: <Users size={20} />,
+    navLink: '/apps/users'
   },
   {
     id: 'chat',

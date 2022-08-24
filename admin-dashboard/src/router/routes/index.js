@@ -33,7 +33,7 @@ const getLayout = {
 }
 
 // ** Document title
-const TemplateTitle = '%s - Vuexy React Admin Template'
+const TemplateTitle = '%s - My Admin Dashboard'
 
 // ** Default Route
 const DefaultRoute = '/dashboard/ecommerce'
