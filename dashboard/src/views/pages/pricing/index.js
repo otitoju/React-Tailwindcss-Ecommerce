@@ -21,6 +21,7 @@ const Pricing = () => {
 
   useEffect(() => {
     axios.get('/pricing/data').then(res => {
+      console.log(res)
       const dataArr = [],
         faqArr = []
 
