@@ -1,5 +1,6 @@
 import React from 'react'
 import Alert from '../components/Alert'
+import { Link } from 'react-router-dom'
 
 const LandingPage = () => {
     return (
@@ -84,12 +85,11 @@ const LandingPage = () => {
                                     </div>
                                 </div>
 
-                                <a
-                                    href="#"
+                                <Link to="/products"><button
                                     className="inline-block text-center bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700"
                                 >
                                     Shop Collection
-                                </a>
+                                </button></Link>
                             </div>
                         </div>
                     </div>

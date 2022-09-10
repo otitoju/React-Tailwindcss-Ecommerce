@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
 import config from '../config';
 import { increaseQuantity, removeFromCart, decreaseQuantity } from '../Redux/cartRedux';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 
@@ -22,22 +22,26 @@ const ItemLists = ({ show, onClick }) => {
     };
 
     const handleQuantity = (id) => {
-        console.log(typeof (id));
-        console.log(cartItems.products)
         dispatch(increaseQuantity(id));
     }
 
     const handleCheckout = async () => {
-        const products = cartItems.products;
-        await axios.post('http://localhost:5000/api/v1/payment/create-checkout-session', {
-            products,
-            userId: user.id
-        }).then( (res) => {
-            if(res.data.url) {
-                window.location.href = res.data.url
-            }
-        }).catch((err) => console.error);
-
+        if (!user) {
+            toast.error(`Please log in to proceed.`);
+        }
+        else {
+            const products = cartItems.products;
+            await axios.post('http://localhost:5000/api/v1/payment/create-checkout-session', {
+                products,
+                userId: user.id
+            }).then( (res) => {
+                if(res.data.url) {
+                    window.location.href = res.data.url
+                }
+            }).catch((err) => { 
+                toast.error(`An error has occurred. ${err.message}`);
+            });
+        }
     }
 
     const getAllCarts = () => {
