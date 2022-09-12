@@ -1,11 +1,8 @@
 {
-  "name": "shopping",
-  "version": "0.1.0",
+  "name": "vuexy-react-admin-dashboard",
+  "version": "8.0.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
     "@casl/ability": "^5.4.3",
     "@casl/react": "^2.3.0",
     "@craco/craco": "^6.4.3",
@@ -68,7 +65,7 @@
     "react-rating": "2.0.5",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "4.0.2",
     "react-select": "^5.3.2",
     "react-shepherd": "3.3.6",
     "react-slidedown": "^2.4.7",
@@ -85,27 +82,26 @@
     "sweetalert2": "^11.4.14",
     "sweetalert2-react-content": "^5.0.0",
     "swiper": "^8.1.5",
-    "web-vitals": "^2.1.4",
     "wnumb": "1.2.0",
     "xlsx": "^0.18.5",
     "yarn": "^1.22.18",
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject",
+    "format": "prettier --write \"src/**/*.js\"",
+    "lint": "eslint src/**/*.js src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app"
   },
   "devDependencies": {
     "@types/sortablejs": "^1.10.6",
-    "eslint": "^8.15.0",
+    "eslint": "^7.11.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
     "prettier": "^2.6.2",
@@ -126,5 +122,6 @@
   "resolutions": {
     "react-error-overlay": "6.0.9",
     "react-scripts/postcss-preset-env/postcss-custom-properties": "^10.0.0"
-  }
+  },
+  "homepage": ""
 }
